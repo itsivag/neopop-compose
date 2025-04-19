@@ -1,3 +1,4 @@
 //rootProject.name = "NeoPop"
 include ':sample'
 include ':neopop'
+include ':neopop-compose'
