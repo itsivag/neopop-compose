@@ -160,10 +160,10 @@ fun Button3D() {
             // Bottom side (grey)
             val bottomSideColor = Color(200, 200, 200) // PopGrey
             val bottomSide = Path().apply {
-                moveTo(0f, h)
+                moveTo(offsetX, h + offsetY)
                 lineTo(depth, canvasHeight)
                 lineTo(canvasWidth, canvasHeight)
-                lineTo(w, h)
+                lineTo(w + offsetX, h + offsetY)
                 close()
             }
             drawPath(bottomSide, color = bottomSideColor)
@@ -171,15 +171,15 @@ fun Button3D() {
             // Right side (lighter grey)
             val rightSideColor = Color(190, 190, 190, 255)
             val rightSide = Path().apply {
-                moveTo(w, 0f)
+                moveTo(w + offsetX, offsetY)
                 lineTo(canvasWidth, depth)
                 lineTo(canvasWidth, canvasHeight)
-                lineTo(w, h)
+                lineTo(w + offsetX, h + offsetY)
                 close()
             }
             drawPath(rightSide, color = rightSideColor)
 
-            // White front face (drawn last to overlay when not pressed)
+            // White front face
             val frontFaceColor = Color.White
             drawRect(
                 color = frontFaceColor,
