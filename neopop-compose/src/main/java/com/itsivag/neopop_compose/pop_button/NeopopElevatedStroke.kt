@@ -19,6 +19,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
@@ -26,10 +27,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.itsivag.neopop_compose.theme.Black
+import com.itsivag.neopop_compose.theme.White
 import com.itsivag.neopop_compose.theme.gilroyFontFamily
 
 @Composable
-fun NeoPopElevatedButton(
+fun NeopopElevatedStroke(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
@@ -79,7 +81,7 @@ fun NeoPopElevatedButton(
             drawPath(bottomSide, color = bottomSideColor)
 
             // Right side (lighter grey)
-            val rightSideColor = Color(190, 190, 190, 255)
+            val rightSideColor = Color(200, 200, 200)
             val rightSide = Path().apply {
                 moveTo(w + offsetX, offsetY)
                 lineTo(canvasWidth, depth)
@@ -89,18 +91,18 @@ fun NeoPopElevatedButton(
             }
             drawPath(rightSide, color = rightSideColor)
 
-            // White front face
-            val frontFaceColor = Color.White
+            // White front
             drawRect(
-                color = frontFaceColor,
+                color = rightSideColor,
                 topLeft = Offset(offsetX, offsetY),
-                size = Size(w, h)
+                size = Size(w, h),
+                style = Stroke(width = 2.dp.toPx())
             )
 
         }
         Text(
             text,
-            color = Black,
+            color = White,
             fontFamily = gilroyFontFamily,
             fontWeight = FontWeight.Bold,
             fontSize = 14.sp,

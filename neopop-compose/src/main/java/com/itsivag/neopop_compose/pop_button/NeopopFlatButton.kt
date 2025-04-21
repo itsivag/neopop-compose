@@ -29,7 +29,7 @@ import com.itsivag.neopop_compose.theme.Black
 import com.itsivag.neopop_compose.theme.gilroyFontFamily
 
 @Composable
-fun NeoPopElevatedButton(
+fun NeopopFlatButton(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
@@ -68,7 +68,7 @@ fun NeoPopElevatedButton(
             val offsetY = if (isPressed) depth else 0f
 
             // Bottom side (grey)
-            val bottomSideColor = Color(200, 200, 200)
+            val bottomSideColor = Color.Transparent
             val bottomSide = Path().apply {
                 moveTo(offsetX, h + offsetY)
                 lineTo(depth, canvasHeight)
@@ -79,7 +79,7 @@ fun NeoPopElevatedButton(
             drawPath(bottomSide, color = bottomSideColor)
 
             // Right side (lighter grey)
-            val rightSideColor = Color(190, 190, 190, 255)
+            val rightSideColor = Color.Transparent
             val rightSide = Path().apply {
                 moveTo(w + offsetX, offsetY)
                 lineTo(canvasWidth, depth)
