@@ -1,7 +1,9 @@
 package com.itsivag.neopop_compose.pop_button
 
+import android.R
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -11,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,6 +23,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +35,7 @@ import com.itsivag.neopop_compose.theme.White
 import com.itsivag.neopop_compose.theme.gilroyFontFamily
 
 @Composable
-fun NeopopFlatButton(
+fun NeopopFlatStrokeButton(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
@@ -60,7 +62,8 @@ fun NeopopFlatButton(
                 ) else
                     PaddingValues(8.dp)
             )
-            .background(color = White)
+            .background(color = Color.Transparent)
+            .border(width = 2.dp, color = White)
             .padding(
                 if (!isPressed) PaddingValues(
                     top = 8.dp,
@@ -123,7 +126,7 @@ fun NeopopFlatButton(
 //        }
         Text(
             text,
-            color = Black,
+            color = White,
             fontFamily = gilroyFontFamily,
             fontWeight = FontWeight.Bold,
             fontSize = 14.sp,
@@ -131,8 +134,8 @@ fun NeopopFlatButton(
             modifier = Modifier
                 .fillMaxWidth()
 //                .offset(
-//                    x = if (isPressed) 1.dp else (-1).dp,
-//                    y = if (isPressed) 1.dp else (-1).dp
+//                    x = if (isPressed) 1.dp else (0).dp,
+//                    y = if (isPressed) 1.dp else (0).dp
 //                )
         )
     }

@@ -26,12 +26,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.itsivag.neopop_compose.theme.Black
 import com.itsivag.neopop_compose.theme.White
 import com.itsivag.neopop_compose.theme.gilroyFontFamily
 
 @Composable
-fun NeopopElevatedStroke(
+fun NeopopElevatedStrokeButton(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
