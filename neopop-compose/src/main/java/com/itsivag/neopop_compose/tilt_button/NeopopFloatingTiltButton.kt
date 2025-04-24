@@ -90,20 +90,16 @@ fun NeopopFloatingTiltButton(
             }
             drawPath(path = path, color = TiltYellow)
 
-            // Animate the slanted white rectangles with changing angle
             clipPath(path) {
                 val rectWidth = 125f
-                val smallerRectWidth = 75f // Width of the smaller rectangle
-                val gap = 25f // Gap between the two rectangles
+                val smallerRectWidth = 75f
+                val gap = 25f
                 val xPosition = shimmerOffset % (size.width + rectWidth + gap) - rectWidth - gap
 
-                // Calculate the progress of the rectangle across the button
                 val progress = (xPosition + rectWidth + gap) / (size.width + rectWidth + gap)
 
-                // Interpolate the slant angle based on progress
                 val slantAngle = lerp(-angle * 2f, angle * 2f, progress)
 
-                // Function to draw a slanted rectangle
                 fun drawSlantedRect(startX: Float, width: Float, color: Color) {
                     val slantedRectPath = Path().apply {
                         val topLeftX = startX
@@ -125,10 +121,8 @@ fun NeopopFloatingTiltButton(
                     )
                 }
 
-                // Draw the smaller rectangle behind
                 drawSlantedRect(xPosition, smallerRectWidth, White)
 
-                // Draw the larger rectangle
                 drawSlantedRect(xPosition + smallerRectWidth + gap, rectWidth, White)
             }
 

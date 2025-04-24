@@ -15,3 +15,12 @@ val gilroyFontFamily = FontFamily(
     Font(R.font.gilroy_ultra_light, FontWeight.ExtraLight),
     Font(R.font.gilroy_bold, FontWeight.Bold),
 )
+
+
+val circaFontFamily = FontFamily(
+    Font(R.font.cirka_variable),
+)
+
+val overPassMono = FontFamily(
+    Font(R.font.overpass_mono_variable)
+)
