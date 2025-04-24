@@ -37,7 +37,6 @@ android {
 }
 
 dependencies {
-    implementation project(":neopop")
 
 //    implementation 'club.cred:neopop:1.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
