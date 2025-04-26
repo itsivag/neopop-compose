@@ -1,10 +1,11 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.vanniktech.maven.publish") version "0.31.0"
 }
 
 android {
-    namespace = "com.itsivag.neopop_compose"
+    namespace = "io.github.itsivag"
     compileSdk = 35
 
     defaultConfig {
@@ -18,8 +19,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -32,9 +32,42 @@ android {
     }
 
     buildFeatures {
-        compose  = true
+        compose = true
+    }
+
+    mavenPublishing {
+        coordinates(
+            groupId = "io.github.itsivag", artifactId = "neopop-compose", version = "0.0.1"
+        )
+
+        pom {
+            name.set("NeoPop Compose")
+            description.set("An UI library based on Cred's Neopop UI Framework. Made With Compose, Made for Compose.")
+            inceptionYear.set("2025")
+            url.set("https://github.com/itsivag/neopop-compose")
+
+            licenses {
+                license {
+                    name.set("Apache License 2.0")
+                    url.set("https://github.com/itsivag/neopop-compose/blob/main/LICENSE")
+                }
+            }
+
+            developers {
+                developer {
+                    id.set("itsivag")
+                    name.set("Siva G")
+                    email.set("sivacbrf2@gmail.com")
+                }
+            }
+
+            scm {
+                url.set("https://github.com/itsivag/neopop-compose")
+            }
+        }
     }
 }
+
 
 dependencies {
 

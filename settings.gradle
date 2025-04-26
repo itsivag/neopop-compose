@@ -1,2 +1,2 @@
-//rootProject.name = "NeoPop"
+//rootProject.name = "NeoPop-Compose"
 include ':neopop-compose'
