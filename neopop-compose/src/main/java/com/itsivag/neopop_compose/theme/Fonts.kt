@@ -3,7 +3,7 @@ package com.itsivag.neopop_compose.theme
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import com.itsivag.neopop_compose.R
+import io.github.itsivag.R
 
 val gilroyFontFamily = FontFamily(
     Font(R.font.gilroy_regular, FontWeight.Normal),
