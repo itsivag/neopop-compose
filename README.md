@@ -1,424 +1,206 @@
-# NeoPOP
-NeoPOP is CRED's inbuilt library for using NeoPOP components in your app.
+# NeoPop Compose
 
-### What really is NeoPOP? 
-[NeoPOP](https://cred.club/neopop) was created with one simple goal; to create the next generation of a beautiful, affirmative design system. NeoPOP stays true to everything that design at CRED stands for.
+An UI library based on [CRED's NeoPop design framework](https://cred.club/neopop), reimagined for Jetpack Compose. This library brings the edgy and pop aesthetics of NeoPop design to modern Android applications using Compose UI.
 
-NeoPOP is built for Android, [iOS](https://github.com/CRED-CLUB/neopop-ios), [Flutter](https://github.com/CRED-CLUB/neopop-flutter) and [Web](https://github.com/CRED-CLUB/neopop-web)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.itsivag/neopop-compose.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.itsivag/neopop-compose)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+> **Note:** This README was generated with the assistance of AI and may contain errors or inaccuracies. Please refer to the actual source code and documentation for the most accurate information.
 
-![Banner](https://i.imgur.com/1gN3wzy.jpg "Banner")
+## Features
 
+* 🎨 Vibrant NeoPop design elements
+* 🔳 Multiple button variants with distinctive 3D effects
+* 🎛️ Tilt and floating animations for interactive elements
+* 🌓 Support for light and dark themes
+* 🧩 Easy integration with existing Compose apps
+* ⚡ Built for performance
 
-## Install
-You can install NeoPOP by adding these to your project:
+## Installation
 
-1. Add this to your module `build.gradle` file:
+Add the dependency to your module's `build.gradle` file:
 
-```groovy
-dependencies {  
-  implementation 'club.cred:neopop:1.0.2'
+```gradle
+dependencies {
+    implementation("io.github.itsivag:neopop-compose:0.0.1")
 }
 ```
 
+## Components
 
-2. Add this to the root/project `build.gradle` file:
+<table>
+<tr>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/itsivag/neopop-compose/main/screenshots/floating_tilt.gif" width="200px" alt="Floating Tilt Button"><br>
+  <b>Floating Tilt Button</b>
+</td>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/itsivag/neopop-compose/main/screenshots/non_floating_tilt.gif" width="200px" alt="Non-Floating Tilt Button"><br>
+  <b>Non-Floating Tilt Button</b>
+</td>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/itsivag/neopop-compose/main/screenshots/floating_stroke.gif" width="200px" alt="Floating Stroke Button"><br>
+  <b>Floating Stroke Button</b>
+</td>
+</tr>
 
-```groovy
-allprojects {
-  repositories {
-    google()
-    jcenter()
+<tr>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/itsivag/neopop-compose/main/screenshots/elevated_button.gif" width="200px" alt="Elevated Button"><br>
+  <b>Elevated Button</b>
+</td>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/itsivag/neopop-compose/main/screenshots/flat_button.gif" width="200px" alt="Flat Button"><br>
+  <b>Flat Button</b>
+</td>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/itsivag/neopop-compose/main/screenshots/elevated_stroke.gif" width="200px" alt="Elevated Stroke Button"><br>
+  <b>Elevated Stroke Button</b>
+</td>
+</tr>
+</table>
 
-    maven {
-        url = 'https://libs.dev.cred.club/'
+## Usage
+
+### Setting up the theme
+
+Wrap your UI with `NeoPopTheme` to ensure consistent styling:
+
+```kotlin
+import com.itsivag.neopop_compose.theme.NeoPopTheme
+
+@Composable
+fun MyApp() {
+    NeoPopTheme {
+        // Your app content
     }
-  }
 }
 ```
 
+### Using Tilt Buttons
 
-# PopLayout
-![Configs](https://user-images.githubusercontent.com/9965653/173539706-fa521743-b214-4372-87dd-799d9b8b6c70.png)
-`PopFrameLayout` render 5 surfaces, top, left, right, bottom and center. 
-These surfaces can be customized in two ways:
+#### Floating Tilt Button
 
-## Elevated
-![Elevated](https://user-images.githubusercontent.com/9965653/172596228-1bcb92d0-d293-4290-ac38-b9a693a2fab2.png "Elevated Button")
-![elevated](https://user-images.githubusercontent.com/9965653/175874614-ab316981-29d1-4ed5-a90b-6fe840ac9700.gif)
+```kotlin
+import com.itsivag.neopop_compose.tilt_button.NeopopFloatingTiltButton
 
-By specifying the `button_position` as `bottom|right`, the layout computes bottom and right surface's color according to `neopop_center_surface_color` . It will also compute visibility of the surfaces according to `button_position`
-```xml  
-<club.cred.neopop.PopFrameLayout  
-  ... 
-  android:clickable="true" 
-  app:neopop_button_position="bottom|right" 
-  app:neopop_center_surface_color="@color/white"
-  app:neopop_depth="3dp" 
-  app:neopop_parent_view_color="@color/black"/>  
-```  
-
-## Flat
-![Flat](https://user-images.githubusercontent.com/9965653/172597180-63b4c386-9b7c-4211-a64c-a79892232481.png "Flat Button")
-![flatButton](https://user-images.githubusercontent.com/9965653/175874619-b5edb3e8-6c18-4f15-8e60-ef44cb004c94.gif)
-By specifying the `button_position` as `center`, the layout will compute right and bottom surface's color according to `neopop_center_surface_color`.
-Top and left surface's color is computed w.r.t `neopop_parent_view_color` and `neopop_grandparent_view_color`
-```xml  
-<club.cred.neopop.PopFrameLayout
-  ...  
-  android:clickable="true"
-  app:neopop_parent_view_color="@color/black"  
-  app:neopop_button_position="center"
-  app:neopop_center_surface_color="@color/white"
-  app:neopop_depth="3dp"/>  
-```  
-
-## Shimmer
-
-```xml  
-<club.cred.neopop.PopFrameLayout    
-  ...  
-  app:neopop_shimmer_duration="5000" 
-  app:neopop_shimmer_width="24dp"    
-  app:neopop_shimmer_color="#f00"    
-  app:neopop_show_shimmer="true"/>  
- ```  
-## Flat Strokes
-![Flat Strokes](https://user-images.githubusercontent.com/9965653/172597728-5830cc72-1d2a-4d52-8089-55fb61449996.png "Flat Strokes")
-![flatStroked](https://user-images.githubusercontent.com/9965653/175874617-a90ef305-d460-4887-927c-0ddecfe45975.gif)
-To render stroke on a flat button, add `neopop_stroke_color`
-```xml  
-<club.cred.neopop.PopFrameLayout    
-   ...  
-   app:neopop_button_position="center"
-   app:neopop_draw_full_height="true"    
-   app:neopop_draw_full_width="true"    
-   app:neopop_parent_view_color="@color/black"  
-   app:neopop_stroke_color="#f00">  
-```  
-
-## Plunk Strokes
-
-![Elevated Strokes](https://user-images.githubusercontent.com/9965653/172597473-630c86b9-574d-4f65-afeb-171c5ec147cc.png "Elevated Strokes")
-![elevatedStroked](https://user-images.githubusercontent.com/9965653/175874610-3e92e9e9-cbed-4906-a90b-423c615e465d.gif)
-To render strokes on an elevated button ,add
-`neopop_is_stroked_button = "true"` and `neopop_stroke_color`
-```xml  
-<club.cred.neopop.PopFrameLayout    
-   ...  
-   android:clickable="true"
-   app:neopop_button_position="bottom|right" 
-   app:neopop_bottom_surface_color="#0f0"
-   app:neopop_right_surface_color="#0f0" 
-   app:neopop_top_surface_color="@android:color/transparent"
-   app:neopop_left_surface_color="@android:color/transparent"    
-   app:neopop_is_stroked_button="true"    
-   app:neopop_stroke_color="#0f0">  
-```  
-
-## Adjacent Buttons
-
-![Adjacent Buttons](https://user-images.githubusercontent.com/9965653/174827283-4ae73c48-eba8-41ce-9661-30924aef2d3c.png)
-
-### Horizontally aligned buttons
-![Horizontally aligned](https://user-images.githubusercontent.com/9965653/177260584-04525dca-5386-4b9a-bf2e-acb607823b02.gif)
-```xml  
-<Space
-  android:id="@+id/left_space"
-  android:layout_width="3dp"
-  android:layout_height="0dp"
-  app:layout_constraintBottom_toBottomOf="parent"
-  app:layout_constraintStart_toStartOf="@id/center_top"
-  app:layout_constraintTop_toTopOf="parent" />
-
-<club.cred.neopop.PopFrameLayout
-  ...
-  android:id="@+id/left_top"
-  android:clickable="true"
-  app:layout_constraintEnd_toEndOf="@id/left_space"
-  app:layout_constraintTop_toTopOf="@id/center_top"
-  app:neopop_button_on_right="@id/center_top">
-  ...content
-</club.cred.neopop.PopFrameLayout>
-
-
-<club.cred.neopop.PopFrameLayout
-  ...
-  android:id="@+id/center_top"
-  android:clickable="true"
-  app:neopop_button_on_left="@id/left_top"
-  app:neopop_center_surface_color="@color/white">
-  ...content
-</club.cred.neopop.PopFrameLayout>
-```  
-### Vertically Aligned buttons
-![Vertically Aligned Button](https://user-images.githubusercontent.com/9965653/177260491-e017a368-4556-4368-9709-7b6897756675.gif)
-```xml 
-<Space
-  android:id="@+id/bottom_space"
-  android:layout_width="0dp"
-  android:layout_height="3dp"
-  app:layout_constraintBottom_toBottomOf="@id/right_top" />
-
-<club.cred.neopop.PopFrameLayout
-  ...
-  android:id="@+id/right_top"
-  android:clickable="true"
-  app:layout_constraintBottom_toTopOf="@+id/right_bottom"
-  app:neopop_button_on_bottom="@id/right_bottom">
-  ...content
-</club.cred.neopop.PopFrameLayout>
-
-<club.cred.neopop.PopFrameLayout
-  ...
-  android:id="@+id/right_bottom"
-  android:clickable="true"
-  app:layout_constraintTop_toTopOf="@id/bottom_space"
-  app:neopop_button_on_top="@id/right_top">
-  ...content
-</club.cred.neopop.PopFrameLayout>
-
+NeopopFloatingTiltButton(
+    text = "Play now",
+    onClick = { /* Handle click */ },
+    modifier = Modifier.padding(vertical = 32.dp)
+)
 ```
 
+#### Non-Floating Tilt Button
 
-## PopLayout All configs
-```xml  
-<club.cred.neopop.PopFrameLayout    
-  android:layout_width="match_parent"    
-  android:layout_height="207dp"    
-  app:neopop_center_surface_color="@color/white"    
-  android:layout_marginHorizontal="24dp"    
-  android:layout_marginVertical="54dp">    
-  
-  <androidx.constraintlayout.widget.ConstraintLayout  
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">    
+```kotlin
+import com.itsivag.neopop_compose.tilt_button.NeopopNonFloatingTiltButton
 
-    <club.cred.neopop.PopFrameLayout    
-      android:id="@+id/topLeft"    
-      android:layout_width="84dp"    
-      android:layout_height="53dp"    
-      app:neopop_center_surface_color="#f00"    
-      app:neopop_parent_view_color="@color/white"    
-      app:neopop_grandparent_view_color="@color/black"    
-      app:layout_constraintTop_toTopOf="parent"    
-      app:layout_constraintStart_toStartOf="parent"    
-      app:neopop_button_position="top|left"    
-      android:clickable="true"/>    
+NeopopNonFloatingTiltButton(
+    text = "Play now",
+    onClick = { /* Handle click */ },
+    modifier = Modifier.padding(vertical = 32.dp)
+)
+```
 
-    <club.cred.neopop.PopFrameLayout  
-      android:id="@+id/top"    
-      android:layout_width="84dp"    
-      android:layout_height="53dp"    
-      app:neopop_center_surface_color="#f00"    
-      app:neopop_parent_view_color="@color/white"    
-      app:neopop_grandparent_view_color="@color/black"    
-      app:layout_constraintTop_toTopOf="parent"    
-      app:layout_constraintStart_toStartOf="parent"    
-      app:layout_constraintEnd_toEndOf="parent"    
-      app:neopop_button_position="top"    
-      android:clickable="true"/>    
+#### Floating Stroke Tilt Button
 
-    <club.cred.neopop.PopFrameLayout  
-      android:id="@+id/topRight"    
-      android:layout_width="84dp"    
-      android:layout_height="53dp"    
-      app:neopop_center_surface_color="#f00"    
-      app:neopop_parent_view_color="@color/white"    
-      app:neopop_grandparent_view_color="@color/black"    
-      app:layout_constraintTop_toTopOf="parent"    
-      app:layout_constraintEnd_toEndOf="parent"    
-      app:neopop_button_position="top|right"    
-      android:clickable="true"/>    
+```kotlin
+import com.itsivag.neopop_compose.tilt_button.NeopopFloatingStrokeTiltButton
 
-    <club.cred.neopop.PopFrameLayout  
-      android:id="@+id/right"    
-      android:layout_width="84dp"    
-      android:layout_height="53dp"    
-      app:neopop_center_surface_color="#f00"    
-      app:neopop_parent_view_color="@color/white"    
-      app:neopop_grandparent_view_color="@color/black"    
-      app:layout_constraintTop_toTopOf="parent"    
-      app:layout_constraintBottom_toBottomOf="parent"    
-      app:layout_constraintEnd_toEndOf="parent"    
-      app:neopop_button_position="right"    
-      android:clickable="true"/>    
+NeopopFloatingStrokeTiltButton(
+    text = "Play now",
+    onClick = { /* Handle click */ },
+    modifier = Modifier.padding(vertical = 32.dp)
+)
+```
 
-    <club.cred.neopop.PopFrameLayout  
-      android:id="@+id/bottomRight"    
-      android:layout_width="84dp"    
-      android:layout_height="53dp"    
-      app:neopop_center_surface_color="#f00"    
-      app:neopop_parent_view_color="@color/white"    
-      app:neopop_grandparent_view_color="@color/black"    
-      app:layout_constraintBottom_toBottomOf="parent"    
-      app:layout_constraintEnd_toEndOf="parent"    
-      app:neopop_button_position="bottom|right"    
-      android:clickable="true"/>    
+### Using Regular Buttons
 
-     <club.cred.neopop.PopFrameLayout  
-       android:id="@+id/bottom"    
-       android:layout_width="84dp"    
-       android:layout_height="53dp"    
-       app:neopop_center_surface_color="#f00"    
-       app:neopop_parent_view_color="@color/white"    
-       app:neopop_grandparent_view_color="@color/black"    
-       app:layout_constraintBottom_toBottomOf="parent"    
-       app:layout_constraintEnd_toEndOf="parent"    
-       app:layout_constraintStart_toStartOf="parent"    
-       app:neopop_button_position="bottom"    
-       android:clickable="true"/>    
+#### Elevated Button
 
-     <club.cred.neopop.PopFrameLayout  
-       android:id="@+id/bottomLeft"    
-       android:layout_width="84dp"    
-       android:layout_height="53dp"    
-       app:neopop_center_surface_color="#f00"    
-       app:neopop_parent_view_color="@color/white"    
-       app:neopop_grandparent_view_color="@color/black"    
-       app:layout_constraintBottom_toBottomOf="parent"    
-       app:layout_constraintStart_toStartOf="parent"    
-       app:neopop_button_position="bottom|left"    
-       android:clickable="true"/>    
+```kotlin
+import com.itsivag.neopop_compose.pop_button.NeoPopElevatedButton
 
-     <club.cred.neopop.PopFrameLayout  
-       android:id="@+id/left"    
-       android:layout_width="84dp"    
-       android:layout_height="53dp"    
-       app:neopop_center_surface_color="#f00"    
-       app:neopop_parent_view_color="@color/white"    
-       app:neopop_grandparent_view_color="@color/black"    
-       app:layout_constraintBottom_toBottomOf="parent"    
-       app:layout_constraintTop_toTopOf="parent"    
-       app:layout_constraintStart_toStartOf="parent"    
-       app:neopop_button_position="left"    
-       android:clickable="true"/>    
+NeoPopElevatedButton(
+    text = "Pay me",
+    onClick = { /* Handle click */ },
+    modifier = Modifier.padding(vertical = 32.dp)
+)
+```
 
-     <club.cred.neopop.PopFrameLayout  
-       android:id="@+id/center"    
-       android:layout_width="84dp"    
-       android:layout_height="53dp"    
-       app:neopop_center_surface_color="#f00"    
-       app:neopop_parent_view_color="@color/white"    
-       app:neopop_grandparent_view_color="@color/black"    
-       app:layout_constraintBottom_toBottomOf="parent"    
-       app:layout_constraintTop_toTopOf="parent"    
-       app:layout_constraintEnd_toEndOf="parent"    
-       app:layout_constraintStart_toStartOf="parent"    
-       app:neopop_button_position="center"    
-       android:clickable="true"/>    
-	  
-  </androidx.constraintlayout.widget.ConstraintLayout> 
-	
-</club.cred.neopop.PopFrameLayout>  
-```  
-# TiltLayout
-![Tilt Layout](https://user-images.githubusercontent.com/9965653/172598614-0d656dd4-aaae-471f-a6b3-d8b275e9bfab.png "Tilt Layout")
+#### Flat Button
 
+```kotlin
+import com.itsivag.neopop_compose.pop_button.NeopopFlatButton
 
-## Non Floating
-![Non Floating](https://user-images.githubusercontent.com/9965653/172599904-75d12903-f490-47d6-b8df-39adc9ef058e.png "Non Floating")
-![tiltNonFloating](https://user-images.githubusercontent.com/9965653/175874607-e8e10326-1d6d-4b7d-be8f-50cc8f37ee14.gif)
-```xml  
-<club.cred.neopop.NeoPopQuadFrameLayout  
-  ...
-  android:clickable="true"    
-  app:neopop_parentViewColor="@color/black"    
-  app:neopop_black_shadow_height="15dp"    
-  app:neopop_black_shadow_top_padding="0dp"    
-  app:neopop_card_rotation="18.8"    
-  app:neopop_gravity="on_ground"  
-  app:neopop_shadow_rotation="32"
-  app:neopop_show_shimmer="false"/>  
-```  
+NeopopFlatButton(
+    text = "Pay now",
+    onClick = { /* Handle click */ },
+    modifier = Modifier.padding(vertical = 32.dp)
+)
+```
 
-##  Floating
-![Floating](https://user-images.githubusercontent.com/9965653/172599406-6da2d3a4-06ff-4a74-bd6a-988b36a59159.png "Floating")
-![tiltFloating](https://user-images.githubusercontent.com/9965653/175874595-86cc0725-df20-4ab3-b432-a6110d4c97c4.gif)
+#### Elevated Stroke Button
 
-```xml  
-<club.cred.neopop.NeoPopQuadFrameLayout  
-  ...    
-  android:clickable="true"    
-  app:neopop_parentViewColor="@color/black"    
-  app:neopop_black_shadow_height="15dp"    
-  app:neopop_black_shadow_top_padding="0dp"    
-  app:neopop_card_rotation="18.8"    
-  app:neopop_gravity="on_space"  
-  app:neopop_shadow_rotation="32"     
-  app:neopop_show_shimmer="false"/>  
-```  
+```kotlin
+import com.itsivag.neopop_compose.pop_button.NeopopElevatedStrokeButton
 
-## Strokes
-![Strokes](https://user-images.githubusercontent.com/9965653/172600281-53eec23d-3596-470e-95ed-dc93ebef82bb.png "Strokes")
-![TiltStroked](https://user-images.githubusercontent.com/9965653/175874601-91a27b7d-9e1b-4148-9a26-b9c9245e7a05.gif)
-## Shimmer
+NeopopElevatedStrokeButton(
+    text = "Pay me",
+    onClick = { /* Handle click */ },
+    modifier = Modifier.padding(vertical = 32.dp)
+)
+```
 
-![shimmer](https://user-images.githubusercontent.com/9965653/175874574-99f209f2-2d14-458b-9f92-959e6aabf112.gif)
+#### Flat Stroke Button
 
-```xml  
-<club.cred.neopop.NeoPopQuadFrameLayout    
-  ...  
-  app:neopop_shimmer_duration="5000"  
-  app:neopop_top_shimmer_color="#f00"    
-  app:neopop_bottom_shimmer_color="#0f0"    
-  app:neopop_show_shimmer="true"    
-  app:neopop_shadow_rotation="32">  
-```  
-## All button attributes
-| Attribute | Description | Value |  
-|--|--|--|  
-|`app:neopop_depth`| depth of shadow | dimension |  
-|`app:neopop_top_surface_color` or `app:neopop_right_surface_color` or `app:neopop_bottom_surface_color` or `app:neopop_left_surface_olor`| shadow colors | color |  
-| `app:neopop_parent_view_color` | immediate ancestor's color | color |  
-| `app:neopop_grandparent_view_color` | 2nd level ancestor's color | color |  
-| `app:neopop_stroke_color` | layout's stroke colors | color |  
-| `app:neopop_surface_color` | card color | style resource |  
-| `app:neopop_is_top_surafce_visible` or `app:neopop_is_right_surface_visible` or `app:neopop_is_bottom_surface_visible` or `app:neopop_is_left_surface_visible`| shadow visibility | boolean |  
-| `app:neopop_button_position` | position of button in ref to parent view | `top`,`right`, `bottom`,`left`,`center` |  
-| `app:neopop_button_on_top` or `app:neopop_button_on_right` or `app:neopop_button_on_bottom` or `app:neopop_button_on_left`| assign reference of button which is on top/right/bottom/left of this button | view id |  
-| `app:neopop_shimmer_duration` | total duration of shimmer | seconds in millis |  
-| `app:neopop_shimmer_color` | shimmer color | color |  
-| `app:neopop_shimmer_width` | shimmer width | dimension |  
-| `app:neopop_show_shimmer` | enable shimmer | boolean |  
-| `app:neopop_shimmer_repeat_delay` | repeat delay between shimmers | seconds in millis|  
-|`app:neopop_shimmer_start_delay` | shimmer start delay | seconds in millis |  
-|`app:neopop_animate_on_touch` | use button animator internally to animate | boolean |
-## Tilt Specific Attributes
-| Attribute | Description | Value |  
-|--|--|--|  
-| `app:neopop_shadow_color` | bottom plane color | color |  
-| `app:neopop_card_rotation` |  |  |  
-| `app:neopop_shadow_rotation` |  |  |  
-| `app:neopop_gravity` | floating or static | `on_space`, `on_ground`|  
-| `app:neopop_top_shimmer_color` | top shimmer color  | color |  
-| `app:neopop_bottom_shimmer_color` | bottom shimmer color | color |  
-| `app:neopop_black_shadow_top_padding` | | |  
-| `app:neopop_black_shadow_height` |  | |  
-| `app:neopop_floating_shadow_color` | | color |
+```kotlin
+import com.itsivag.neopop_compose.pop_button.NeopopFlatStrokeButton
 
-## Min SDK
+NeopopFlatStrokeButton(
+    text = "Pay now",
+    onClick = { /* Handle click */ },
+    modifier = Modifier.padding(vertical = 32.dp)
+)
+```
 
-We support a minimum SDK of 21.
+## Example
 
-## Contributing
+For a complete example of how to use all components, please refer to the sample composable provided in the library:
 
-Pull requests are welcome! We'd love help improving this library. Feel free to browse through open issues to look for things that need work. If you have a feature request or bug, please open a new issue so we can track it.
+[View Sample Code](https://github.com/itsivag/neopop-compose/blob/main/neopop-compose/src/main/java/com/itsivag/neopop_compose/Sample.kt)
 
+The sample demonstrates how to create a showcase of all available components with proper styling and layout.
+
+## Requirements
+
+* Android API Level 24+
+* Jetpack Compose
+* Kotlin 1.7.20+
+
+## Credits
+
+This library is inspired by [CRED's NeoPop design framework](https://cred.club/neopop) and was created as part of a personal exploration into Jetpack Compose UI development.
 
 ## License
 
-```  
-Copyright 2022 Dreamplug Technologies Private Limited.  
-  
-Licensed under the Apache License, Version 2.0 (the "License");  
-you may not use this file except in compliance with the License.  
-You may obtain a copy of the License at  
-  
- http://www.apache.org/licenses/LICENSE-2.0  
-Unless required by applicable law or agreed to in writing, software  
-distributed under the License is distributed on an "AS IS" BASIS,  
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  
-See the License for the specific language governing permissions and  
-limitations under the License.  
 ```
+Copyright 2025 Siva G
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+---
+
+Made with ❤️ by [Siva G](https://github.com/itsivag)
