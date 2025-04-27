@@ -36,7 +36,16 @@ import com.itsivag.neopop_compose.theme.Black
 import com.itsivag.neopop_compose.theme.TiltYellow
 import com.itsivag.neopop_compose.theme.White
 import com.itsivag.neopop_compose.theme.gilroyFontFamily
-
+import androidx.compose.animation.core.EaseInOutBounce
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun NeopopFloatingTiltButton(
@@ -48,16 +57,46 @@ fun NeopopFloatingTiltButton(
     val angle = 75f
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
-    val infiniteTransition = rememberInfiniteTransition()
+    var isClicked by remember { mutableStateOf(false) }
 
-    val animatedY by infiniteTransition.animateFloat(
+    // Combined interaction state
+    val isInteracting = isPressed || isClicked
+
+    // Remember last animation position to avoid jumps
+    var lastAnimatedYPosition by remember { mutableFloatStateOf(5f) }
+    var shouldPauseAnimation by remember { mutableStateOf(false) }
+
+    val infiniteTransition = rememberInfiniteTransition(label = "floatingTransition")
+    val floatingAnimation by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 10f,
         animationSpec = infiniteRepeatable(
             animation = tween(2000, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
-        )
+        ),
+        label = "floatingAnimation"
     )
+
+    // Update the last position when animation is running
+    if (!shouldPauseAnimation) {
+        lastAnimatedYPosition = floatingAnimation
+    }
+
+    // Only trigger the effect when the interaction state changes
+    LaunchedEffect(isInteracting) {
+        if (isInteracting) {
+            shouldPauseAnimation = true
+            delay(5000) // Using 5000ms as in your first button
+            if (!isPressed && !isClicked) {
+                shouldPauseAnimation = false
+            }
+        } else {
+            shouldPauseAnimation = false
+        }
+    }
+
+    // Use the remembered last position when paused
+    val animatedY = if (!shouldPauseAnimation) floatingAnimation else lastAnimatedYPosition
 
     val shimmerOffset by infiniteTransition.animateFloat(
         initialValue = -1000f,
@@ -65,7 +104,17 @@ fun NeopopFloatingTiltButton(
         animationSpec = infiniteRepeatable(
             animation = tween(3000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
-        )
+        ),
+        label = "shimmerAnimation"
+    )
+
+    val pressOffsetAnimation by animateFloatAsState(
+        targetValue = if (isInteracting) 12f else 0f,
+        animationSpec = tween(
+            durationMillis = 50,
+            easing = EaseInOutBounce
+        ),
+        label = "pressAnimation"
     )
 
     Box(
@@ -73,8 +122,17 @@ fun NeopopFloatingTiltButton(
             .wrapContentHeight()
             .height((height / 2).dp)
             .fillMaxWidth()
-            .clickable(interactionSource, null, onClick = onClick)
-            .offset(y = animatedY.dp + if (isPressed) 6.dp else 0.dp),
+            .clickable(interactionSource, null) {
+                isClicked = true
+                onClick()
+                MainScope().launch {
+                    delay(50)
+                    isClicked = false
+                }
+            }
+            // Use separate offset modifiers to help avoid interference
+            .offset(y = animatedY.dp)
+            .offset(y = pressOffsetAnimation.dp),
         contentAlignment = Alignment.Center
     ) {
         Canvas(
@@ -89,43 +147,34 @@ fun NeopopFloatingTiltButton(
                 close()
             }
             drawPath(path = path, color = TiltYellow)
-
             clipPath(path) {
                 val rectWidth = 125f
                 val smallerRectWidth = 75f
                 val gap = 25f
                 val xPosition = shimmerOffset % (size.width + rectWidth + gap) - rectWidth - gap
-
                 val progress = (xPosition + rectWidth + gap) / (size.width + rectWidth + gap)
-
                 val slantAngle = lerp(-angle * 2f, angle * 2f, progress)
-
                 fun drawSlantedRect(startX: Float, width: Float, color: Color) {
                     val slantedRectPath = Path().apply {
                         val topLeftX = startX
                         val topRightX = startX + width
                         val bottomLeftX = topLeftX + slantAngle
                         val bottomRightX = topRightX + slantAngle
-
                         moveTo(topLeftX, 0f)
                         lineTo(topRightX, 0f)
                         lineTo(bottomRightX, height)
                         lineTo(bottomLeftX, height)
                         close()
                     }
-
                     drawPath(
                         path = slantedRectPath,
                         color = color,
                         blendMode = BlendMode.SrcAtop
                     )
                 }
-
                 drawSlantedRect(xPosition, smallerRectWidth, White)
-
                 drawSlantedRect(xPosition + smallerRectWidth + gap, rectWidth, White)
             }
-
             drawPath(path = Path().apply {
                 moveTo(0f, height)
                 lineTo(20f, depth)

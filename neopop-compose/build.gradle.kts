@@ -39,7 +39,7 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = "io.github.itsivag", artifactId = "neopop-compose", version = "0.0.1"
+        groupId = "io.github.itsivag", artifactId = "neopop-compose", version = "0.0.2"
     )
 
     publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
